@@ -29,3 +29,27 @@ tempo[tempo$Temperatura < -135 | tempo$Temperatura > 130 ,]$Temperatura = median
 #consulta demais
 tempo[tempo$Temperatura< -135 | tempo$Temperatura > 130 ,]$Temperatura
 summary(tempo$Temperatura)
+
+#Umidade, analise de dominio e NAs
+summary(tempo$Umidade)
+#fora do dominio - ver valores anormais
+tempo[tempo$Umidade < 0 | tempo$Umidade > 100 ,]$Umidade
+#consulta NAs
+tempo[is.na(tempo$Umidade),]
+#atribuir mediana a NAs
+tempo[is.na(tempo$Umidade),]$Umidade = median(tempo$Umidade,na.rm = T)
+#subtituição
+tempo[tempo$Umidade < 0 | tempo$Umidade > 100 ,]$Umidade = median(tempo$Umidade) 
+#buscamos novamente valores anormais
+tempo[tempo$Umidade < 0 | tempo$Umidade > 100 ,]
+summary(tempo$Umidade)
+
+#VENTO NAs
+summary(tempo$Vento)
+#Verifica NAs
+tempo[is.na(tempo$Vento),]
+#substitui
+tempo[is.na(tempo$Vento),]$Vento = 'FALSO'
+#Verifica NAs novamente
+tempo[is.na(tempo$Vento),]
+summary(tempo$Vento)
